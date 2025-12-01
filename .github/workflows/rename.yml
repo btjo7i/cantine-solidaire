@@ -1,0 +1,38 @@
+name: Normalize JSON export
+
+on:
+  push:
+    paths:
+      - "*.json"
+      - "!data.json"
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Find uploaded JSON file
+        id: findjson
+        run: |
+          # tous les .json sauf data.json
+          file=$(ls -t *.json | grep -v "data.json" | head -n 1)
+          if [ -z "$file" ]; then
+            echo "No JSON file to rename."
+            exit 0
+          fi
+          echo "file=$file" >> $GITHUB_OUTPUT
+
+      - name: Rename to data.json
+        run: mv "${{ steps.findjson.outputs.file }}" data.json
+
+      - name: Commit renamed file
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data.json
+          git commit -m "Rename JSON export to data.json" || echo "Nothing to commit"
+          git push
