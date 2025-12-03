@@ -1,9 +1,0 @@
-{
-  "personnes": ["Chips", "Cuillère", "Jo", "Leksa", "Marthe", "Réa", "Suète"],
-  "taches": [
-    {"nom": "appeler producteurices", "categorie": "Préparation"},
-    {"nom": "prépa cuisine", "categorie": "Préparation"},
-    {"nom": "distribution Jour J", "categorie": "Jour J"},
-    {"nom": "rangement et nettoyage cuisine", "categorie": "Après"}
-  ]
-}
